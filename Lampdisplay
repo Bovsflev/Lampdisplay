@@ -1,0 +1,228 @@
+#include <Keypad.h>
+
+const byte ROWS = 4; //four rows
+const byte COLS = 3; //three columns
+char keys[ROWS][COLS] = {
+  {'1', '2', '3'},
+  {'4', '5', '6'},
+  {'7', '8', '9'},
+  {'*', '0', '#'}
+};
+byte rowPins[ROWS] = {8, 7, 6, 5}; //connect to the row pinouts of the kpd
+byte colPins[COLS] = {4, 3, 2}; //connect to the column pinouts of the kpd
+Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+String msg;
+const int ch1 = A0;
+const int ch2 = A1;
+const int ch3 = A2;
+const int ch4 = A3;
+const int ch5 = A4;
+const int ch6 = A5;
+const int ch7 = 9;
+const int ch8 = 10;
+const int ch9 = 11;
+int p1 = 0;
+int i2 = 0;
+int i3 = 0;
+int i4 = 0;
+int i5 = 0;
+int i6 = 0;
+int i7 = 0;
+int i8 = 0;
+int fadeValue = 0; // how bright the LED is
+int fadeAmount = 5;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(ch1, OUTPUT);
+  pinMode(ch2, OUTPUT);
+  pinMode(ch3, OUTPUT);
+  pinMode(ch4, OUTPUT);
+  pinMode(ch5, OUTPUT);
+  pinMode(ch6, OUTPUT);
+  pinMode(ch7, OUTPUT);
+  pinMode(ch8, OUTPUT);
+  pinMode(ch9, OUTPUT);
+  msg = "";
+  digitalWrite(ch1, HIGH);
+  digitalWrite(ch2, HIGH);
+  digitalWrite(ch3, HIGH);
+  digitalWrite(ch4, HIGH);
+  digitalWrite(ch5, HIGH);
+  digitalWrite(ch6, HIGH);
+  digitalWrite(ch7, HIGH);
+  digitalWrite(ch8, HIGH);
+}
+
+
+void loop() {
+  // Fills kpd.key[ ] array with up-to 10 active keys.
+    // Returns true if there are ANY active keys.
+    if (kpd.getKeys())
+    {
+    for (int i = 0; i < LIST_MAX; i++) // Scan the whole key list.
+    {
+      if ( kpd.key[i].stateChanged )   // Only find keys that have changed state.
+      {
+        switch (kpd.key[i].kstate) {  // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
+          case PRESSED:
+            msg = " PRESSED.";
+            break;
+          case HOLD:
+            msg = " HOLD.";
+            break;
+          case RELEASED:
+            msg = " RELEASED.";
+            break;
+          case IDLE:
+            msg = " IDLE.";
+        }
+        Serial.print("Key ");
+        Serial.print(kpd.key[i].kchar);
+        Serial.println(msg);
+        if (kpd.key[i].kchar == '1')
+        {
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch1, LOW);
+            p1++;
+            Serial.println(p1);
+          }
+          if (p1 == 2)
+          {
+            digitalWrite(ch1, HIGH);
+            p1 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '2')
+        {
+          Serial.println(i2);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch2, LOW);
+            i2++;
+          }
+          if (i2 == 2)
+          {
+            digitalWrite(ch2, HIGH);
+            i2 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '3')
+        {
+          Serial.println(i3);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch3, LOW);
+            i3++;
+          }
+          if (i3 == 2)
+          {
+            digitalWrite(ch3, HIGH);
+            i3 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '4')
+        {
+          Serial.println(i4);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch4, LOW);
+            i4++;
+          }
+          if (i4 == 2)
+          {
+            digitalWrite(ch4, HIGH);
+            i4 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '5')
+        {
+          Serial.println(i5);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch5, LOW);
+            i5++;
+          }
+          if (i5 == 2)
+          {
+            digitalWrite(ch5, HIGH);
+            i5 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '6')
+        {
+          Serial.println(i6);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch6, LOW);
+            i6++;
+          }
+          if (i6 == 2)
+          {
+            digitalWrite(ch6, HIGH);
+            i6 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '7')
+        {
+          Serial.println(i7);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch7, LOW);
+            i7++;
+          }
+          if (i7 == 2)
+          {
+            digitalWrite(ch7, HIGH);
+            i7 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '8')
+        {
+          Serial.println(i8);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch8, LOW);
+            i8++;
+          }
+          if (i8 == 2)
+          {
+            digitalWrite(ch8, HIGH);
+            i8 = 0;
+          }
+        }
+        if (kpd.key[i].kchar == '*')
+        {
+          Serial.println(p1);
+          Serial.println(i2);
+          Serial.println(i3);
+          Serial.println(i4);
+          Serial.println(i5);
+          Serial.println(i6);
+          Serial.println(i7);
+          Serial.println(i8);
+          if (kpd.key[i].kstate == PRESSED)
+          {
+            digitalWrite(ch1, HIGH);
+            digitalWrite(ch2, HIGH);
+            digitalWrite(ch3, HIGH);
+            digitalWrite(ch4, HIGH);
+            digitalWrite(ch5, HIGH);
+            digitalWrite(ch6, HIGH);
+            digitalWrite(ch7, HIGH);
+            digitalWrite(ch8, HIGH);
+            p1 = 0;
+            i2 = 0;
+            i3 = 0;
+            i4 = 0;
+            i5 = 0;
+            i6 = 0;
+            i7 = 0;
+            i8 = 0;
+          }
+        }
+      }
+    }
+  }
+}
